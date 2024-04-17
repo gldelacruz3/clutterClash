@@ -1,0 +1,2 @@
+A multiplayer cleaning battle game, where users engage in competitive sessions to tidy up virtual rooms. Participants are assigned roles as either cleaners or distractors, tasked with organizing a messy room or obstructing progress. The platform features live streaming capabilities for spectators to observe matches in real-time, as well as recording functionality for future viewing.
+Project Specs link https://docs.google.com/document/d/1eML2dhC13CozH4PlO0ppMKOJ-ofkIGUB-pnwiRM98h0/edit?usp=sharing
