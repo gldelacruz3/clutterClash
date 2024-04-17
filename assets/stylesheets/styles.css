@@ -14,22 +14,31 @@ main {
     margin: auto;
 }
 
-#play, #watch {
+#play, #watch, #cleanercard, #distractorcard {
+    color: white;
     width: 320px;
     padding: 20px;
     display: inline-block;
     border-radius: 10px;
-    margin: 10px;
+    margin: 0px 10px;
     vertical-align: top;
     text-align: center;
 }
     #play {
+        color: black;
         border: 2px #2a2a2a solid;
     }
 
     #watch {
-        color: white;
         background-color: #2a2a2a;
+    }
+
+    #cleanercard {
+        background-color: #004aad;
+    }
+
+    #distractorcard {
+        background-color: #ff3131;
     }
 
 input {
@@ -49,10 +58,24 @@ nav {
 }
 
 h2 {
-    font-family: 'Roboto Slab', serif
+    font-family: 'Roboto Slab', serif;
 }
 
-#startjoin, #livematch, #previousmatches {
+.playername {
+    font-family: 'Roboto Slab', serif;
+    font-size: x-large;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.playerrole {
+    font-family: 'Roboto', sans-serif;
+    font-size: medium;
+    font-weight: 100;
+    margin-top: 5px;
+}
+
+#startjoin, #livematch, #previousmatches, #startcleaner, #startdistractor{
     border: none;
     border-radius: 10px;
     font-family: 'Roboto', sans-serif;
@@ -67,3 +90,9 @@ h2 {
         background-color: white;
     }
 
+#status {
+    font-family: 'Roboto', sans-serif;
+    font-size: medium;
+    text-align: center;
+    margin-bottom: 40px;
+}
