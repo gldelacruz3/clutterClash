@@ -5,13 +5,16 @@
 main {
     width: 1280px;
     margin: auto;
+    padding: 40px 20px;
 }
 
 #primarylogo {
-    padding-top: 100px;
-    padding-bottom: 50px;
-    width: 240px;
     margin: auto;
+    width: 240px;
+}
+
+#secondarylogo {
+    width: 240px;
 }
 
 #play, #watch, #cleanercard, #distractorcard {
@@ -51,6 +54,10 @@ input {
     border-radius: 10px;
     font-family: 'Roboto', sans-serif;
 }
+    #returntohome {
+        width: 40%;
+        margin: 40px auto;
+    }
 
 nav {
     width: 680px;
@@ -95,4 +102,21 @@ h2 {
     font-size: medium;
     text-align: center;
     margin-bottom: 40px;
+}
+
+#winner {
+    font-family: 'Roboto Slab', serif;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: 700;
+    margin-top: 0;
+}
+
+.finalscore {
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    font-size: xxx-large;
+    font-weight: 900;
+    color: white;
+    margin: 10px;
 }

@@ -8,28 +8,31 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css">
-    <title>Clutter Clash Home</title>
+    <title>Match Recap</title>
 </head>
 <body>
     <main>
         <header id="primarylogo">
             <img src="/images/Clutter Clash_primary_240.png" alt="Clutter Clash">
         </header>
+        <section id="winner">
+            <p>Cleaner wins the game!!!</p>
+        </section>
         <nav>
-            <section id="play">
-                <h2>Play</h2>
-                <form action="" value="play">
-                    <input type="text" name="username" id="username" placeholder="Enter Username">
-                    <input type="submit" id="startjoin" value="Start/Join">
-                </form>
+            <section id="cleanercard">
+                <p class="playername">Cleaner Name</p>
+                <p class="playerrole">Cleaner</p>
+                <p class="finalscore">8</p>
             </section><!--
-         --><section id="watch">
-                <h2>Watch</h2>
-                <form action="" value="watch">
-                    <input type="submit" id="livematch" value="Live Match">
-                    <input type="submit" id="previousmatches" value="Previous Matches">
-                </form> 
+         --><section id="distractorcard">
+                <p class="playername">Distractor Name</p>
+                <p class="playerrole">Distractor</p>
+                <p class="finalscore">2</p>
+                </form>
             </section>
+            <form action="">
+                <input type="submit" name="home" value="Return to Home" id="returntohome">
+            </form>
         </nav>
     </main>
     
