@@ -9,15 +9,15 @@ document.addEventListener('DOMContentLoaded', function() {
             e.dataTransfer.dropEffect = 'move';
         });
         element.addEventListener('dragend', function(e) {
-            var x = e.clientX - 35;
-            var y = e.clientY - 35;
-            var arenaTop = 100;
-            var arenaBottom = 760;
-            var arenaLeft = (window.innerWidth-1280)/2;
-            var arenaRight = (window.innerWidth-1280)/2 + 1280;
+            var x = e.clientX - (window.innerWidth-1280)/2 - 35;
+            var y = e.clientY - 100 - 35;
+            var arenaTop = 0;
+            var arenaBottom = 660;
+            var arenaLeft = 0;
+            var arenaRight = 1280;
 
 
-            y = (y < arenaTop)? arenaTop : y;
+            y = (y < arenaTop + 45)? arenaTop + 10: y;
             y = (y > arenaBottom - 70)? arenaBottom - 70 : y;
             x = (x < arenaLeft)? arenaLeft : x;
             x = (x > arenaRight - 70)? arenaRight - 70 : x; 

@@ -6,7 +6,6 @@ main {
     width: 1280px;
     margin: auto;
     padding-top: 40px;
-    border: 1px green solid
 }
 
 #primarylogo {
@@ -128,9 +127,9 @@ h2 {
 }
 
 #arena {
+    position: relative;
     width: 1280px;
     height: 660px;
-    border: 1px solid black;
 }
 
 #scoreboard {
@@ -143,4 +142,10 @@ h2 {
     position: absolute;
     cursor: move;
     border: 1px solid blue;
+}
+
+.storage {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
