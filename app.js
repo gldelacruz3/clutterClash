@@ -21,6 +21,10 @@ app.get("/match_recordings", function(req, res) {
     res.render("match_recordings");
 });
 
+app.get("/live_match", function(req, res) {
+    res.render("live_match");
+});
+
 
 
 app.listen(8000, function() {
