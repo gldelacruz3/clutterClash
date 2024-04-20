@@ -11,6 +11,21 @@ app.set("view engine", "ejs");
 var cleanerScore = 0;
 var distractorScore = 0;
 
+io.on("connection", function (socket) {
+    
+    socket.on("dragging", function (moveData) {
+        console.log("drag data passed");
+        socket.broadcast.emit("moveElement", moveData);
+    });
+
+    socket.on("drop", function (moveData) {
+        console.log("drop data passed");
+        socket.broadcast.emit("moveElement", moveData);
+    });
+
+
+});
+
 app.get("/", function(req, res) {
     res.sendFile(__dirname + "/views/index.html");
 });

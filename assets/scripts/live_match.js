@@ -1,5 +1,12 @@
 const socket = io();
 
+socket.on("moveElement", function(moveData) {
+    document.getElementById(moveData.clutterId).style.left = moveData.x + "px";
+    document.getElementById(moveData.clutterId).style.top = moveData.y + "px";
+});
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
     var clutterElements = document.querySelectorAll(".clutter");
 
@@ -9,22 +16,33 @@ document.addEventListener('DOMContentLoaded', function() {
         element.addEventListener('dragstart', function(e) {
             e.dataTransfer.setDragImage(element, 35, 35);
             e.dataTransfer.dropEffect = 'move';
+            console.log("drag started");
         });
 
-        element.addEventListener("drag", function(e)) {
+        element.addEventListener("drag", function(e) {
+            e.preventDefault();
             var x = e.clientX - (window.innerWidth-1280)/2 - 35;
             var y = e.clientY - 100 - 35;
-            socket.emit("dragging", {x, y});
-        }
+            var clutterId = e.target.id;
+
+            if(x > 0 && y > 0) {
+                socket.emit("dragging", {clutterId, x, y});
+            }
+            
+            console.log("drag continued");
+            console.log(x);
+            console.log(y);
+        });
         
         element.addEventListener('dragend', function(e) {
             var x = e.clientX - (window.innerWidth-1280)/2 - 35;
             var y = e.clientY - 100 - 35;
+            var clutterId = e.target.id;
+
             var arenaTop = 0;
             var arenaBottom = 660;
             var arenaLeft = 0;
             var arenaRight = 1280;
-
 
             y = (y < arenaTop + 45)? arenaTop + 10: y;
             y = (y > arenaBottom - 70)? arenaBottom - 70 : y;
@@ -32,6 +50,12 @@ document.addEventListener('DOMContentLoaded', function() {
             x = (x > arenaRight - 70)? arenaRight - 70 : x; 
             element.style.left = x + "px";
             element.style.top = y + "px";
+
+            socket.emit("drop", {clutterId, x, y});
+        });
+
+        document.addEventListener("dragover", function() {
+
         });
     });
 });
