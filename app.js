@@ -30,9 +30,3 @@ app.get("/match_recordings", function(req, res) {
 app.get("/live_match", function(req, res) {
     res.render("live_match");
 });
-
-
-
-app.listen(8000, function() {
-    console.log("Listening to Port 8000");
-});
