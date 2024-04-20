@@ -5,22 +5,16 @@ socket.on("moveElement", function(moveData) {
     document.getElementById(moveData.clutterId).style.top = moveData.y + "px";
 });
 
-
-
 document.addEventListener('DOMContentLoaded', function() {
     var clutterElements = document.querySelectorAll(".clutter");
 
-    console.log(clutterElements);
-    
     clutterElements.forEach(function(element) {
         element.addEventListener('dragstart', function(e) {
             e.dataTransfer.setDragImage(element, 35, 35);
             e.dataTransfer.dropEffect = 'move';
-            console.log("drag started");
         });
 
         element.addEventListener("drag", function(e) {
-            e.preventDefault();
             var x = e.clientX - (window.innerWidth-1280)/2 - 35;
             var y = e.clientY - 100 - 35;
             var clutterId = e.target.id;
@@ -28,10 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if(x > 0 && y > 0) {
                 socket.emit("dragging", {clutterId, x, y});
             }
-            
-            console.log("drag continued");
-            console.log(x);
-            console.log(y);
         });
         
         element.addEventListener('dragend', function(e) {
@@ -54,8 +44,5 @@ document.addEventListener('DOMContentLoaded', function() {
             socket.emit("drop", {clutterId, x, y});
         });
 
-        document.addEventListener("dragover", function() {
-
-        });
     });
 });
