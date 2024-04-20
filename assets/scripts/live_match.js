@@ -7,7 +7,7 @@ socket.on("moveElement", function(moveData) {
 
 document.addEventListener('DOMContentLoaded', function() {
     var clutterElements = document.querySelectorAll(".clutter");
-
+    
     clutterElements.forEach(function(element) {
         element.addEventListener('dragstart', function(e) {
             e.dataTransfer.setDragImage(element, 35, 35);
