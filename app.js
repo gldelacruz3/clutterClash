@@ -1,9 +1,15 @@
 var express = require("express");
 var app = express();
 
+const server = app.listen(8000);
+const io = require("socket.io")(server);
+
 app.use(express.static(__dirname + "/assets"));
 app.set("views", __dirname + "/views"); 
 app.set("view engine", "ejs");
+
+var cleanerScore = 0;
+var distractorScore = 0;
 
 app.get("/", function(req, res) {
     res.sendFile(__dirname + "/views/index.html");

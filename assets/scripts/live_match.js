@@ -1,3 +1,7 @@
+const socket = io();
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
     var clutterElements = document.querySelectorAll(".clutter");
 
@@ -8,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.dataTransfer.setDragImage(element, 35, 35);
             e.dataTransfer.dropEffect = 'move';
         });
+        
         element.addEventListener('dragend', function(e) {
             var x = e.clientX - (window.innerWidth-1280)/2 - 35;
             var y = e.clientY - 100 - 35;
