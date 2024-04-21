@@ -22,6 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
         matchTime = matchDuration;
         document.getElementById("timer").innerHTML = matchDuration + "";
     });
+
+    socket.on("updateScore", function(scoreData) {
+        console.log("what?");
+        document.getElementById("matchscorecleaner").innerHTML = scoreData.cleaner;
+        document.getElementById("matchscoredistractor").innerHTML = scoreData.distractor;
+    });
     
     clutterElements.forEach(function(element) {
         element.addEventListener('dragstart', function(e) {

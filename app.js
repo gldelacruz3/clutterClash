@@ -65,7 +65,7 @@ function updateScore() {
     }
     cleanerScore = (cleanerScore - 10 < 0)? 0: cleanerScore - 10;
     distractorScore = (distractorScore - 10 < 0)? 0: distractorScore - 10;
-    console.log(cleanerScore + " | " + distractorScore);
+    io.emit("updateScore", {"cleaner": cleanerScore,"distractor": distractorScore});
 }
 
 function startMatch() {

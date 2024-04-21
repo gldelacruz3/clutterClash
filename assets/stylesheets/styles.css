@@ -135,7 +135,7 @@ h2 {
 #scoreboard {
     width: 1280px;
     height: 60px;
-    border: 1px red solid;
+    border: 2px #2a2a2a solid;
 }
 
 .clutter {
@@ -149,3 +149,62 @@ h2 {
     top: 0;
     left: 0;
 }
+
+
+
+#scorelogo, #scorecleanername, #matchscorecleaner, #timer, #matchscoredistractor, #scoredistractorname, #live {
+    height: 40px;
+    margin: 8px 10px;
+    display: inline-block;
+    vertical-align: top;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+}
+    #scorelogo, #live {
+        width: 180px;
+    }
+
+    #scorecleanername, #scoredistractorname {
+        padding: 10px; 
+        width: 256px;
+        color: #2a2a2a;
+    }
+
+    #matchscorecleaner, #matchscoredistractor {
+        padding: 10px; 
+        width: 60px;
+        text-align: center;
+        color: white;
+    }
+
+        #live {
+            background-color: red;
+            color: white;
+            text-align: center;
+            padding: 10px; 
+        }
+
+        #matchscorecleaner {
+            background-color: #004aad;
+        }
+        
+        #matchscoredistractor {
+            background-color: #ff3131;
+        }
+
+        #scorecleanername {
+            text-align: right;
+        }
+
+        #scoredistractorname {
+            text-align: left;
+        }
+
+    #timer {
+        text-align: center;
+        width: 120px;
+        height: 40px;
+        background-color: #2a2a2a;
+        color: white;
+        padding: 10px; 
+    }
