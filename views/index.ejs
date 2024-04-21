@@ -16,22 +16,26 @@
             <img src="/images/Clutter Clash_primary_240.png" alt="Clutter Clash">
         </header>
         <nav>
+            <% if (messages.error) { %>
+                <div class="error-message">
+                    <%= messages.error %>
+                </div>
+            <% } %>
             <section id="play">
                 <h2>Play</h2>
-                <form action="" value="play">
+                <form action="" id="registerPlay" method="post">
                     <input type="text" name="username" id="username" placeholder="Enter Username">
                     <input type="submit" id="startjoin" value="Start/Join">
                 </form>
             </section><!--
          --><section id="watch">
                 <h2>Watch</h2>
-                <form action="" value="watch">
+                <form action="" id="registerWatch">
                     <input type="submit" id="livematch" value="Live Match">
                     <input type="submit" id="previousmatches" value="Previous Matches">
                 </form> 
             </section>
         </nav>
     </main>
-    
 </body>
 </html>

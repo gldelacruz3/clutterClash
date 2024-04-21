@@ -16,25 +16,42 @@
             <img src="/images/Clutter Clash_primary_240.png" alt="Clutter Clash">
         </header>
         <section id="status">
-            <p>Match will start in 8 seconds</p>
+            <p>When ready, click start under your username and wait for the other player to click start.</p>
         </section>
         <nav>
             <section id="cleanercard">
-                <p class="playername">Cleaner Name</p>
+                <% if (matchDetails.cleanerName) { %>
+                    <p class="playername"><%= matchDetails.cleanerName %></p>
+                <% } else { %>
+                    <p class="playername">Waiting...</p>
+                <% } %>
                 <p class="playerrole">Cleaner</p>
-                <form action="">
-                    <input type="submit" name="start" value="Start" id="startcleaner">
-                </form>
+                <input type="submit" name="start" value="Start" id="startCleaner">
             </section><!--
          --><section id="distractorcard">
-                <p class="playername">Distractor Name</p>
+                <% if (matchDetails.distractorName) { %>
+                    <p class="playername"><%= matchDetails.distractorName %></p>
+                <% } else { %>
+                    <p class="playername">Waiting...</p>
+                <% } %>
                 <p class="playerrole">Distractor</p>
-                <form action="">
-                    <input type="submit" name="start" value="Start" id="startdistractor">
-                </form>
+                <input type="submit" name="start" value="Start" id="startDistractor">
             </section>
         </nav>
     </main>
+    <script>
+        document.getElementById("startCleaner").addEventListener("click", function() {
+            socket.emit("cleanerReady");
+        });
+        document.getElementById("startDistractor").addEventListener("click", function() {
+            socket.emit("distractorReady");
+        });
+        
+        socket.on("redirect", function(destination) {
+            console.log("here").
+            window.location.href = destination;
+        });
+    </script>
     
 </body>
 </html>

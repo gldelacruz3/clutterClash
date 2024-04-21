@@ -1,5 +1,22 @@
 var express = require("express");
+const session = require('express-session');
+const flash = require("express-flash");
+const bodyParser = require('body-parser');
+const crypto = require('crypto');
+const sessionSecret = crypto.randomBytes(64).toString('hex');
+
 var app = express();
+
+app.use(session({
+    secret: sessionSecret,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 600000 }
+}))
+
+app.use(flash());
+
+app.use(bodyParser.urlencoded({extended: true}));
 
 const server = app.listen(8000);
 const io = require("socket.io")(server);
@@ -31,11 +48,21 @@ var clutter = {
     "clutter20": { x: 966, y: 515 }
 };
 
-startMatch();
+var matchDetails = {
+    "cleanerName": null,
+    "distractorName":null,
+    "cleanerScore": 0,
+    "distractorScore": 0,
+    "matchTimer": 120,
+    "countdownTimer": 10
+}
+
+var cleanerReady = false;
+var distractorReady = false;
+var countdownStarted = false;
 
 io.on("connection", function (socket) {
-    socket.emit("initializeClutter", clutter);
-    
+    socket.emit("initializeMatch", clutter, matchDetails);  
     
     socket.on("dragging", function (moveData) {
         clutter[moveData.clutterId].x = moveData.x;
@@ -49,6 +76,30 @@ io.on("connection", function (socket) {
         socket.broadcast.emit("moveElement", moveData);
         updateScore();
     });
+
+    socket.on("cleanerReady", function() {
+        cleanerReady = true;
+        if(distractorReady == true) {
+            io.emit("redirect", "/live_match");
+            if(countdownStarted == false) {
+                startCountdown();
+                countdownStarted = true;
+            }
+            
+        }
+    });
+
+    socket.on("distractorReady", function() {
+        distractorReady = true;
+        if(cleanerReady == true) {
+            io.emit("redirect", "/live_match");
+            if(countdownStarted == false) {
+                startCountdown();
+                countdownStarted = true;
+            }
+        }
+    });
+
 });
 
 function updateScore() {
@@ -63,17 +114,28 @@ function updateScore() {
             distractorScore += 1;
         }
     }
-    cleanerScore = (cleanerScore - 10 < 0)? 0: cleanerScore - 10;
-    distractorScore = (distractorScore - 10 < 0)? 0: distractorScore - 10;
-    io.emit("updateScore", {"cleaner": cleanerScore,"distractor": distractorScore});
+    matchDetails["cleanerScore"] = (cleanerScore - 10 < 0)? 0: cleanerScore - 10;
+    matchDetails["distractorScore"] = (distractorScore - 10 < 0)? 0: distractorScore - 10;
+    io.emit("updateScore", matchDetails);
+}
+
+function startCountdown() {
+    let intervalId = setInterval(function() {
+        matchDetails["countdownTimer"] -= 1;
+            io.emit("updateCountdown", matchDetails);
+            if (matchDetails["countdownTimer"] == 0) {
+                startMatch();
+                clearInterval(intervalId);
+            }
+        }, 1000
+    );
 }
 
 function startMatch() {
-    let matchDuration = 15;
     let intervalId = setInterval(function() {
-            matchDuration = matchDuration - 1;
-            io.emit("updateMatchTimer", matchDuration);
-            if (matchDuration == 0) {
+            matchDetails["matchTimer"] -= 1;
+            io.emit("updateMatchTimer", matchDetails);
+            if (matchDetails["matchTimer"] == 0) {
                 clearInterval(intervalId);
             } 
         }, 1000
@@ -81,11 +143,29 @@ function startMatch() {
 }
 
 app.get("/", function(req, res) {
-    res.sendFile(__dirname + "/views/index.html");
+    res.render("index", { messages: req.flash() });
+});
+
+app.post("/", (req, res) => {
+    const username = req.body.username;
+    if (matchDetails["cleanerName"] == null) {
+        matchDetails["cleanerName"] = username;
+        req.session.username = username;
+        req.session.player = true;
+        res.redirect("/waiting_room");
+    } else if (matchDetails["distractorName"]==null) {
+        matchDetails["distractorName"] = username;
+        req.session.username = username;
+        req.session.player = true;
+        res.redirect("/waiting_room");
+    } else {
+        req.flash("error", "Match is ongoing, try again later.");
+        res.redirect("/")
+    }
 });
 
 app.get("/waiting_room", function(req, res) {
-    res.render("waiting_room");
+    res.render("waiting_room", { matchDetails: matchDetails });
 });
 
 app.get("/match_summary", function(req, res) {

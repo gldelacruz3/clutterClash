@@ -1,7 +1,7 @@
 const socket = io();
 
 var matchTime = 120;
-
+var countdownTime = 10;
 
 document.addEventListener('DOMContentLoaded', function() {
     var clutterElements = document.querySelectorAll(".clutter");
@@ -11,22 +11,33 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById(moveData.clutterId).style.top = moveData.y + "px";
     });
 
-    socket.on("initializeClutter", function(clutter) {
+    socket.on("initializeMatch", function(clutter, matchDetails) {
         for (let id in clutter) {
             document.getElementById(id).style.left = clutter[id].x + "px";
             document.getElementById(id).style.top = clutter[id].y + "px";
         }
+        for (let id in matchDetails) {
+            document.getElementById(id).innerHTML = matchDetails[id];
+        }
     });
 
-    socket.on("updateMatchTimer", function(matchDuration) {
-        matchTime = matchDuration;
-        document.getElementById("timer").innerHTML = matchDuration + "";
+    socket.on("updateCountdown", function(matchDetails) {
+        document.getElementById("countdownTimer").style.display = "block";
+        countdownTime = matchDetails["countdownTimer"];
+        document.getElementById("countdownTimer").innerHTML = matchDetails["countdownTimer"];
+    });
+    
+    socket.on("updateMatchTimer", function(matchDetails) {
+        document.getElementById("countdownTimer").style.display = "none";
+        matchTime = matchDetails["matchTimer"];
+        document.getElementById("matchTimer").innerHTML = matchDetails["matchTimer"];
+        
     });
 
-    socket.on("updateScore", function(scoreData) {
-        console.log("what?");
-        document.getElementById("matchscorecleaner").innerHTML = scoreData.cleaner;
-        document.getElementById("matchscoredistractor").innerHTML = scoreData.distractor;
+    socket.on("updateScore", function(matchDetails) {
+        console.log(matchDetails);
+        document.getElementById("cleanerScore").innerHTML = matchDetails["cleanerScore"];
+        document.getElementById("distractorScore").innerHTML = matchDetails["distractorScore"];
     });
     
     clutterElements.forEach(function(element) {

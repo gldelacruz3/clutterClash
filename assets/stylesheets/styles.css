@@ -141,7 +141,6 @@ h2 {
 .clutter {
     position: absolute;
     cursor: move;
-    border: 1px solid blue;
 }
 
 .storage {
@@ -152,7 +151,7 @@ h2 {
 
 
 
-#scorelogo, #scorecleanername, #matchscorecleaner, #timer, #matchscoredistractor, #scoredistractorname, #live {
+#scorelogo, #cleanerName, #cleanerScore, #matchTimer, #distractorScore, #distractorName, #live {
     height: 40px;
     margin: 8px 10px;
     display: inline-block;
@@ -164,13 +163,13 @@ h2 {
         width: 180px;
     }
 
-    #scorecleanername, #scoredistractorname {
+    #cleanerName, #distractorName {
         padding: 10px; 
         width: 256px;
         color: #2a2a2a;
     }
 
-    #matchscorecleaner, #matchscoredistractor {
+    #cleanerScore, #distractorScore {
         padding: 10px; 
         width: 60px;
         text-align: center;
@@ -184,23 +183,23 @@ h2 {
             padding: 10px; 
         }
 
-        #matchscorecleaner {
+        #cleanerScore {
             background-color: #004aad;
         }
         
-        #matchscoredistractor {
+        #distractorScore {
             background-color: #ff3131;
         }
 
-        #scorecleanername {
+        #cleanerScore {
             text-align: right;
         }
 
-        #scoredistractorname {
+        #distractorName {
             text-align: left;
         }
 
-    #timer {
+    #matchTimer {
         text-align: center;
         width: 120px;
         height: 40px;
@@ -208,3 +207,26 @@ h2 {
         color: white;
         padding: 10px; 
     }
+
+#countdownTimer {
+    position: absolute;
+    width: 200px;
+    height: 100px;
+    left: 540px;
+    top: 280px;
+    font-size: large;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    background-color: #2a2a2a;
+    text-align: center;
+    margin-top: 40px;
+    display:none;
+}
+
+.error-message {
+    color: #ff3131;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    margin: 10px;
+    font-size: medium;
+}
